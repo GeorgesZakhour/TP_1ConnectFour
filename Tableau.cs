@@ -18,6 +18,7 @@ namespace TP_1ConnectFour
         {
             InitializeBoard();
         }
+        
 
         private void InitializeBoard()
         {
@@ -52,29 +53,28 @@ namespace TP_1ConnectFour
 
                     if (token == player1)
                     {
-                        Console.BackgroundColor = player1Color;
+                        
+                       
+                       
+                            Console.BackgroundColor = player1Color;
+                        
                     }
                     else if (token == player2)
                     {
-                        Console.BackgroundColor = player2Color;
-                    }
-                    if (WinnerWinnerChikenDinner(player1) && token == player1)
-                    {
-                        Console.BackgroundColor = (ConsoleColor)random.Next(0, 16);
-                    }
-                    else if (WinnerWinnerChikenDinner(player2) && token == player2)
-                    {
                        
-                            Console.BackgroundColor = (ConsoleColor)random.Next(0, 16);
-
+                        
+                            Console.BackgroundColor = player2Color;
+                        
                       
                     }
-                   
+
+
                     Console.Write("___");
                     Console.ResetColor();
                 }
                 Console.WriteLine("|");
             }
+
         }
 
         public bool JouerPartie(int col, char player)
@@ -86,7 +86,9 @@ namespace TP_1ConnectFour
                     board[row, col] = player;
                     return true;
                 }
+              
             }
+         
             return false;
         }
 
@@ -103,7 +105,7 @@ namespace TP_1ConnectFour
             {
                 Console.WriteLine("Choix invalide. Veuillez réessayer.");
                 Demander_joueur();
-                return ;
+                return;
             }
         }
 
@@ -176,5 +178,22 @@ namespace TP_1ConnectFour
             return false;
 
         }
+        public bool IsBoardFull()
+        {
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int col = 0; col < Cols; col++)
+                {
+                    if (board[row, col] == '_')
+                    {
+                        return false; // Found an empty space, so the board is not full
+                    }
+                }
+            }
+            return true; // No empty space found, the board is full
+        }
+
+
     }
+
 }

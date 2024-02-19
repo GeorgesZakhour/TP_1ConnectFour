@@ -17,6 +17,13 @@ class ConnectFourGame
             tableau.Demander_joueur();
 
             Console.Clear();
+            if (tableau.IsBoardFull())
+            {
+                tableau.PrintBoard();
+                Console.WriteLine("personne n'a gagné");
+                partieEnCours = false;
+            }
+
             if (tableau.WinnerWinnerChikenDinner('X'))
             {
                 tableau.PrintBoard();
@@ -29,6 +36,7 @@ class ConnectFourGame
                 Console.WriteLine("Le joueur O a gagné!");
                 partieEnCours = false;
             }
+         
         }
     }
 }
