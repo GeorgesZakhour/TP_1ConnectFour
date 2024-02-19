@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Numerics;
 
 namespace TP_1ConnectFour
 {
@@ -33,7 +35,7 @@ namespace TP_1ConnectFour
 
         public void PrintBoard()
         {
-            Random random = new Random();
+            
             for (int i = 0; i < Cols; i++)
             {
                 Console.Write(_cases[i].PadRight(4));
@@ -53,19 +55,24 @@ namespace TP_1ConnectFour
 
                     if (token == player1)
                     {
-                        
-                       
-                       
+                      
                             Console.BackgroundColor = player1Color;
                         
                     }
                     else if (token == player2)
                     {
                        
-                        
+             
                             Console.BackgroundColor = player2Color;
-                        
-                      
+                  
+                    }
+                    if (WinnerWinnerChikenDinner(player1) && board[row, col] == player1)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White; 
+                    }
+                    else if (WinnerWinnerChikenDinner(player2) && board[row, col] == player2)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White; 
                     }
 
 
@@ -94,6 +101,7 @@ namespace TP_1ConnectFour
 
         public void Demander_joueur()
         {
+           
             char JoueurActuel = UnEtDeux(player1, player2);
             Console.WriteLine($"C'est au joueur {JoueurActuel} de jouer.");
             Console.WriteLine("Tapez la lettre de la colonne choisie (A-G):");
@@ -101,11 +109,13 @@ namespace TP_1ConnectFour
             char choix = char.ToUpper(Console.ReadKey().KeyChar);
             int col = choix - 'A';
 
-            if (col < 0 || col >= Cols || !JouerPartie(col, JoueurActuel))
+            while (col < 0 || col >= Cols || !JouerPartie(col, JoueurActuel))
             {
-                Console.WriteLine("Choix invalide. Veuillez réessayer.");
-                Demander_joueur();
-                return;
+                Console.WriteLine("\nChoix invalide. Veuillez réessayer.");
+                 choix = char.ToUpper(Console.ReadKey().KeyChar);
+                 col = choix - 'A';
+               
+              
             }
         }
 
@@ -118,6 +128,7 @@ namespace TP_1ConnectFour
 
         public bool WinnerWinnerChikenDinner(char player)
         {
+           
 
             for (int row = 0; row < Rows; row++)
             {
@@ -128,7 +139,9 @@ namespace TP_1ConnectFour
                         board[row, col + 2] == player &&
                         board[row, col + 3] == player)
                     {
+                        
                         return true;
+                       
                     }
                 }
             }
@@ -143,6 +156,7 @@ namespace TP_1ConnectFour
                         board[row + 2, col] == player &&
                         board[row + 3, col] == player)
                     {
+                       
                         return true;
                     }
                 }
@@ -178,6 +192,18 @@ namespace TP_1ConnectFour
             return false;
 
         }
+
+        private void ColorierGagnant(char player)
+        {
+           Random random = new Random();
+            char token = player;
+            
+       Console.BackgroundColor = (ConsoleColor)random.Next(1, 16);
+
+   
+            
+        }
+
         public bool IsBoardFull()
         {
             for (int row = 0; row < Rows; row++)
