@@ -7,14 +7,14 @@ namespace TP_1ConnectFour
     {
         static void Main(string[] args)
         {
-            afficher_titre();
-            ConnectFourGame game = new ConnectFourGame();
+            afficher_titre();//afficher le titre
+            ConnectFourGame game = new ConnectFourGame();//creeation d'un objet jeu
 
           
             
 
         }
-
+        //methode pour afficher le titre
         private static void afficher_titre()
         {
           

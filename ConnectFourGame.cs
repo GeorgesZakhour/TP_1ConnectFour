@@ -9,28 +9,28 @@ class ConnectFourGame
  
     public ConnectFourGame()
     {
-        Tableau tableau = new Tableau();
-        bool partieEnCours = true;
-        while (partieEnCours)
+        Tableau tableau = new Tableau();//creeation d'un objet tableau
+        bool partieEnCours = true;//variable pour verifier si la partie est en cours
+        while (partieEnCours)//tant que la partie est en cours
         {
-            tableau.PrintBoard();
-            tableau.Demander_joueur();
+            tableau.PrintBoard();//afficher le tableau
+            tableau.Demander_joueur();//demander au joueur de jouer
 
-            Console.Clear();
-            if (tableau.IsBoardFull())
+            Console.Clear();//effacer la console
+            if (tableau.IsBoardFull())//si le tableau est plein
             {
-                tableau.PrintBoard();
-                Console.WriteLine("personne n'a gagné");
-                partieEnCours = false;
+                tableau.PrintBoard();//afficher le tableau
+                Console.WriteLine("personne n'a gagné");//afficher que personne n'a gagné
+                partieEnCours = false;//la partie est finie
             }
 
-            if (tableau.WinnerWinnerChikenDinner('X'))
+            if (tableau.WinnerWinnerChikenDinner('X'))//si le joueur X a gagné
             {
-                tableau.PrintBoard();
-                Console.WriteLine("Le joueur X a gagné!");
-                partieEnCours = false;
+                tableau.PrintBoard();//afficher le tableau
+                Console.WriteLine("Le joueur X a gagné!");//afficher que le joueur X a gagné
+                partieEnCours = false;//la partie est finie
             }
-            else if (tableau.WinnerWinnerChikenDinner('Y'))
+            else if (tableau.WinnerWinnerChikenDinner('O'))//meme principe pour le joueur x
             {
                 tableau.PrintBoard();
                 Console.WriteLine("Le joueur O a gagné!");
