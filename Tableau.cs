@@ -199,7 +199,25 @@
             return true;
         }
 
-
+       public bool rejouerpartie()
+        {
+            Console.WriteLine("Voulez-vous rejouer? (O/N)");
+            char choix = char.ToUpper(Console.ReadKey().KeyChar);
+            while (choix != 'O' && choix != 'N')//tant que le choix est invalide
+            {
+                Console.WriteLine("\nChoix invalide. Veuillez réessayer.");//afficher que le choix est invalide
+                choix = char.ToUpper(Console.ReadKey().KeyChar);
+            }
+            if (choix == 'O')
+            {
+                Console.Clear();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
 }
