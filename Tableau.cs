@@ -55,6 +55,7 @@
                         Console.BackgroundColor = player1Color;//la couleur de fond est rouge
 
                     }
+
                     else if (token == player2)
                     {
 
@@ -62,7 +63,7 @@
                         Console.BackgroundColor = player2Color;//la couleur de fond est jaune
 
                     }
-                
+
 
                     Console.Write("___");
                     Console.ResetColor();
@@ -114,44 +115,52 @@
             return currentPlayerToken;//retourner le jeton actuel
         }
         //methode pour verifier si un joueur a gagné
-        public bool WinnerWinnerChikenDinner(char player)
+        public (bool, char[,]) WinnerWinnerChikenDinner(char player)
         {
 
             // gagnant horizontal
-            for ( int row = 0; row < Rows; row++)
+            for (int row = 0; row < Rows; row++)
             {
-                for ( int col = 0; col <= Cols - 4; col++)
+                for (int col = 0; col <= Cols - 4; col++)
                 {
-                    if (board[row, col] == player &&//si le joueur a 4 jetons alignés horizontalement
-                        board[row, col + 1] == player &&//+1    
+                    if (board[row, col] == player &&  // Check if the player has 4 chips aligned horizontally
+                        board[row, col + 1] == player &&  // +1
                         board[row, col + 2] == player &&
                         board[row, col + 3] == player)
                     {
-
-                        return true;
-
+                        char[,] charArray = new char[1, 4] { { board[row, col], board[row, col + 1], board[row, col + 2], board[row, col + 3] } };
+                        return (true, charArray);
                     }
-
                 }
             }
 
+
             // gagnant vertical
-            for ( int col = 0; col < Cols; col++)
+            // Winner vertical
+            for (int col = 0; col < Cols; col++)
             {
                 for (int row = 0; row <= Rows - 4; row++)
                 {
-                    if (board[row, col] == player &&//si le joueur a 4 jetons alignés verticalement
+                    if (board[row, col] == player &&  // Check if the player has 4 chips aligned vertically
                         board[row + 1, col] == player &&
                         board[row + 2, col] == player &&
                         board[row + 3, col] == player)
                     {
-
-                        return true;
+                        char[,] charArray = new char[4, 1]
+                        {
+                { board[row, col] },
+                { board[row + 1, col] },
+                { board[row + 2, col] },
+                { board[row + 3, col] }
+                        };
+                        return (true, charArray);
                     }
                 }
             }
 
+
             // gagnant diagonal
+            // Check for diagonal alignments from top-left to bottom-right
             for (int row = 0; row <= Rows - 4; row++)
             {
                 for (int col = 0; col <= Cols - 4; col++)
@@ -161,25 +170,41 @@
                         board[row + 2, col + 2] == player &&
                         board[row + 3, col + 3] == player)
                     {
-                        return true;
+                        char[,] charArray = new char[4, 1]
+                        {
+                { board[row, col] },
+                { board[row + 1, col + 1] },
+                { board[row + 2, col + 2] },
+                { board[row + 3, col + 3] }
+                        };
+                        return (true, charArray);
                     }
                 }
             }
-            // gagnant diagonal
+
+            // Check for diagonal alignments from bottom-left to top-right
             for (int row = 3; row < Rows; row++)
             {
                 for (int col = 0; col <= Cols - 4; col++)
                 {
-                    if (board[row, col] == player &&//si le joueur a 4 jetons alignés en diagonale
+                    if (board[row, col] == player &&
                         board[row - 1, col + 1] == player &&
                         board[row - 2, col + 2] == player &&
                         board[row - 3, col + 3] == player)
                     {
-                        return true;
+                        char[,] charArray = new char[4, 1]
+                        {
+                { board[row, col] },
+                { board[row - 1, col + 1] },
+                { board[row - 2, col + 2] },
+                { board[row - 3, col + 3] }
+                        };
+                        return (true, charArray);
                     }
                 }
             }
-            return false;
+
+            return (false, null);
 
         }
 
@@ -199,7 +224,7 @@
             return true;
         }
 
-       public bool rejouerpartie()
+        public bool rejouerpartie()
         {
             Console.WriteLine("Voulez-vous rejouer? (O/N)");
             char choix = char.ToUpper(Console.ReadKey().KeyChar);
@@ -218,6 +243,51 @@
                 return false;
             }
         }
+        public void PrintBoardGangant(char[,] charArray)
+        {
+
+
+            for (int i = 0; i < Cols; i++)
+            {
+                Console.Write(_cases[i].PadRight(4));
+                if (i == 1)
+                {
+                    Console.Write(" ");
+                }
+            }
+
+            Console.WriteLine();
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int col = 0; col < Cols; col++)
+                {
+                 char token = charArray[]
+                    Console.Write("|");
+
+                    if (token == player1)//si le jeton est celui du joueur 1
+                    {
+
+                        Console.BackgroundColor = player1Color;//la couleur de fond est rouge
+
+                    }
+
+                    else if (token == player2)
+                    {
+
+
+                        Console.BackgroundColor = player2Color;//la couleur de fond est jaune
+
+                    }
+
+
+                    Console.Write("___");
+                    Console.ResetColor();
+                }
+                Console.WriteLine("|");
+            }
+        }
     }
+
+
 
 }

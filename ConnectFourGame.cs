@@ -1,6 +1,7 @@
 ﻿using Atelier2C6_101_2024;
 using System;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Numerics;
 using TP_1ConnectFour;
 
@@ -33,12 +34,14 @@ class ConnectFourGame
                 }
               
             }
-
-            if (tableau.WinnerWinnerChikenDinner('X'))//si le joueur X a gagné
+            var gagnantx = tableau.WinnerWinnerChikenDinner('X');
+            var gagantO = tableau.WinnerWinnerChikenDinner('O');
+            if (gagnantx.Item1)//si le joueur X a gagné
             {
                 tableau.PrintBoard();//afficher le tableau
                 Console.WriteLine("Le joueur X a gagné!");//afficher que le joueur X a gagné
                 partieEnCours = false;//la partie est finie
+                tableau.PrintBoardGangant(gagnantx.Item2);
                 if (tableau.rejouerpartie())//demander si les joueurs veulent rejouer
                 {
                     tableau = new Tableau();//creeation d'un nouvel objet tableau
@@ -50,11 +53,12 @@ class ConnectFourGame
                 }
 
             }
-            else if (tableau.WinnerWinnerChikenDinner('O'))//meme principe pour le joueur x
+            else if (gagantO.Item1)//meme principe pour le joueur x
             {
                 tableau.PrintBoard();
                 Console.WriteLine("Le joueur O a gagné!");
                 partieEnCours = false;
+                tableau.PrintBoardGangant(gagantO.Item2);
                 if (tableau.rejouerpartie())//demander si les joueurs veulent rejouer
                 {
                     tableau = new Tableau();//creeation d'un nouvel objet tableau
